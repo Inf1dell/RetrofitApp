@@ -19,7 +19,6 @@ import com.google.gson.Gson;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import apk.karmak.retrofitapp.DUse.MainActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -142,9 +141,12 @@ public class SignInActivity extends AppCompatActivity {
 
                                 return;
                             }
-                            Intent main = new Intent(SignInActivity.this, OnBoard.class);
-                            startActivity(main);
-                            finish();
+                            Intent pin = new Intent(SignInActivity.this, PinCodeActivity.class);
+                            pin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(pin);
+//                            finish();
+//                            ActivityCompat.finishAffinity(YourActivity.this);
+//                            finishAffinity();
                         }
 
                         @Override
