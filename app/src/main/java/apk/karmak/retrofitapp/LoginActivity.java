@@ -60,25 +60,10 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://medic.madskill.ru/api/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+                Intent code = new Intent(LoginActivity.this, SignInActivity.class);
+                code.putExtra("email", email.getText().toString());
+                startActivity(code);
 
-                MyAPI getWeatherApi = retrofit.create(MyAPI.class);
-                Call<DataModel> call = getWeatherApi.getMess(email.getText().toString());
-                call.enqueue(new Callback<DataModel>() {
-                    @Override
-                    public void onResponse(Call<DataModel> call, Response<DataModel> response) {
-                        Intent code = new Intent(LoginActivity.this, SignInActivity.class);
-                        startActivity(code);
-                    }
-
-                    @Override
-                    public void onFailure(Call<DataModel> call, Throwable t) {
-                        Log.e("Error get code", t.getMessage());
-                    }
-                });
             }
         });
     }
