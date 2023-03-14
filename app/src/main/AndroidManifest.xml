@@ -15,6 +15,9 @@
         android:theme="@style/Theme.RetrofitApp"
         tools:targetApi="31">
         <activity
+            android:name=".SignInActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
@@ -27,8 +30,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:name=".DUse.MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

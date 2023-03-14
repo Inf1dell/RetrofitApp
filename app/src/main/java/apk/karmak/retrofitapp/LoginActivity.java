@@ -2,6 +2,7 @@ package apk.karmak.retrofitapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -69,12 +70,13 @@ public class LoginActivity extends AppCompatActivity {
                 call.enqueue(new Callback<DataModel>() {
                     @Override
                     public void onResponse(Call<DataModel> call, Response<DataModel> response) {
-
+                        Intent code = new Intent(LoginActivity.this, SignInActivity.class);
+                        startActivity(code);
                     }
 
                     @Override
                     public void onFailure(Call<DataModel> call, Throwable t) {
-                        Log.e("MSG", t.getMessage());
+                        Log.e("Error get code", t.getMessage());
                     }
                 });
             }

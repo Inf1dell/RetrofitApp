@@ -1,20 +1,21 @@
-package apk.karmak.retrofitapp;
+package apk.karmak.retrofitapp.DUse;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.util.List;
-
+import apk.karmak.retrofitapp.DataModel;
+import apk.karmak.retrofitapp.MyAPI;
+import apk.karmak.retrofitapp.R;
+import apk.karmak.retrofitapp.SignInActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("MSG", response.code()+"");
                         Log.e("MSG", response.body().getMessage()+"");
                        tSend.setText(response.body().getMessage()+"");
+                        Intent code = new Intent(MainActivity.this, SignInActivity.class);
+                        startActivity(code);
                     }
 
                     @Override
