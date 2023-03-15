@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="onClick"
     tools:context=".PinCodeActivity">
 
     <TextView
@@ -58,27 +59,27 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginEnd="12dp"
-            app:srcCompat="@drawable/btn_yandex" />
+            android:background="@drawable/btn_yandex_white" />
 
         <ImageView
             android:id="@+id/pin2"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginEnd="12dp"
-            app:srcCompat="@drawable/btn_yandex" />
+            android:background="@drawable/btn_yandex_white" />
 
         <ImageView
             android:id="@+id/pin3"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginEnd="12dp"
-            app:srcCompat="@drawable/btn_yandex" />
+            android:background="@drawable/btn_yandex_white" />
 
         <ImageView
             android:id="@+id/pin4"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            app:srcCompat="@drawable/btn_yandex" />
+            android:background="@drawable/btn_yandex_white" />
     </LinearLayout>
 
     <LinearLayout
@@ -99,6 +100,7 @@
             android:background="@drawable/btn_pin_style"
             android:minWidth="0dp"
             android:minHeight="0dp"
+            android:onClick="onClick"
             android:stateListAnimator="@null"
             android:text="1"
             android:textColor="@drawable/text_pin_style"
@@ -112,6 +114,7 @@
             android:background="@drawable/btn_pin_style"
             android:minWidth="0dp"
             android:minHeight="0dp"
+            android:onClick="onClick"
             android:stateListAnimator="@null"
             android:text="2"
             android:textColor="@drawable/text_pin_style"
@@ -124,6 +127,7 @@
             android:background="@drawable/btn_pin_style"
             android:minWidth="0dp"
             android:minHeight="0dp"
+            android:onClick="onClick"
             android:stateListAnimator="@null"
             android:text="3"
             android:textColor="@drawable/text_pin_style"
@@ -149,6 +153,7 @@
             android:background="@drawable/btn_pin_style"
             android:minWidth="0dp"
             android:minHeight="0dp"
+            android:onClick="onClick"
             android:stateListAnimator="@null"
             android:text="4"
             android:textColor="@drawable/text_pin_style"
@@ -162,10 +167,11 @@
             android:background="@drawable/btn_pin_style"
             android:minWidth="0dp"
             android:minHeight="0dp"
+            android:onClick="onClick"
+            android:stateListAnimator="@null"
             android:text="5"
             android:textColor="@drawable/text_pin_style"
-            android:textSize="24sp"
-            android:stateListAnimator="@null" />
+            android:textSize="24sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn4"
@@ -174,6 +180,7 @@
             android:background="@drawable/btn_pin_style"
             android:minWidth="0dp"
             android:minHeight="0dp"
+            android:onClick="onClick"
             android:stateListAnimator="@null"
             android:text="6"
             android:textColor="@drawable/text_pin_style"
@@ -198,6 +205,7 @@
             android:background="@drawable/btn_pin_style"
             android:minWidth="0dp"
             android:minHeight="0dp"
+            android:onClick="onClick"
             android:stateListAnimator="@null"
             android:text="7"
             android:textColor="@drawable/text_pin_style"
@@ -211,6 +219,7 @@
             android:background="@drawable/btn_pin_style"
             android:minWidth="0dp"
             android:minHeight="0dp"
+            android:onClick="onClick"
             android:stateListAnimator="@null"
             android:text="8"
             android:textColor="@drawable/text_pin_style"
@@ -223,6 +232,7 @@
             android:background="@drawable/btn_pin_style"
             android:minWidth="0dp"
             android:minHeight="0dp"
+            android:onClick="onClick"
             android:stateListAnimator="@null"
             android:text="9"
             android:textColor="@drawable/text_pin_style"
@@ -237,6 +247,7 @@
         android:background="@drawable/btn_pin_style"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        android:onClick="onClick"
         android:stateListAnimator="@null"
         android:text="0"
         android:textColor="@drawable/text_pin_style"
@@ -251,9 +262,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="46dp"
         android:background="@android:color/transparent"
+        android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="@+id/btn0"
         app:layout_constraintStart_toEndOf="@+id/btn0"
         app:layout_constraintTop_toTopOf="@+id/btn0"
         app:srcCompat="@drawable/del" />
+
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="224dp"
+        android:text="pinCode: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
