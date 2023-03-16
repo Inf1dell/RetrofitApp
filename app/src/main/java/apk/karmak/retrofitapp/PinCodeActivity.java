@@ -5,20 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import apk.karmak.retrofitapp.main.MainActivity;
+
 public class PinCodeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView scip;
+    TextView scip, title;
     ImageView pin1,pin2,pin3,pin4;
     Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn0;
     ImageButton del;
@@ -33,15 +33,34 @@ public class PinCodeActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin_code);
 
+
+        title=findViewById(R.id.textView8);
+
+
         scip=findViewById(R.id.scip2);
         scip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent main = new Intent(PinCodeActivity.this, PatientCardActivity.class);
-                main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(main);
+                if(getPatientStatus()==true){
+                    Intent main = new Intent(PinCodeActivity.this, MainActivity.class);
+                    main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(main);
+                }else {
+                    Intent main = new Intent(PinCodeActivity.this, PatientCardActivity.class);
+                    main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(main);
+                }
+
             }
         });
+
+
+        if(getPassCode().length()!=0 || !getPassCode().equals("") || getPassCode()!=null){
+            scip.setVisibility(View.INVISIBLE);
+            title.setText("Введите пароль");
+        }
+
+
 
         pin1=findViewById(R.id.pin1);
         pin2=findViewById(R.id.pin2);
@@ -125,10 +144,10 @@ public class PinCodeActivity extends AppCompatActivity implements View.OnClickLi
 
     private void passNumber(ArrayList<String> numbers_list) {
         if(numbers_list.size() == 0){
-            pin1.setBackgroundResource(R.drawable.btn_yandex);
-            pin2.setBackgroundResource(R.drawable.btn_yandex);
-            pin3.setBackgroundResource(R.drawable.btn_yandex);
-            pin4.setBackgroundResource(R.drawable.btn_yandex);
+            pin1.setBackgroundResource(R.drawable.pin_dot_inactive);
+            pin2.setBackgroundResource(R.drawable.pin_dot_inactive);
+            pin3.setBackgroundResource(R.drawable.pin_dot_inactive);
+            pin4.setBackgroundResource(R.drawable.pin_dot_inactive);
         } else {
             switch (numbers_list.size()) {
                 case 1:
@@ -149,6 +168,9 @@ public class PinCodeActivity extends AppCompatActivity implements View.OnClickLi
                     passCode = num1+num2+num3+num4;
                     if(getPassCode().length()==0 || getPassCode().equals("") || getPassCode()==null){
                         savePassCode(passCode);
+                        Intent patient = new Intent(PinCodeActivity.this, PatientCardActivity.class);
+                        patient.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(patient);
                     }else {
                         matchPassCode();
                     }
@@ -159,15 +181,23 @@ public class PinCodeActivity extends AppCompatActivity implements View.OnClickLi
 
     private void matchPassCode() {
         if(getPassCode().equals(passCode)) {
-            startActivity(new Intent(this, PatientCardActivity.class));
+            if(getPatientStatus()==true){
+                Intent main = new Intent(PinCodeActivity.this, MainActivity.class);
+                main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(main);
+            }else {
+                Intent main = new Intent(PinCodeActivity.this, PatientCardActivity.class);
+                main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(main);
+            }
         } else {
 //            Toast.makeText(this, "Pass error", Toast.LENGTH_SHORT).show();
             numbers_list.clear();
             passNumber(numbers_list);
-            pin1.setBackgroundResource(R.drawable.btn_yandex);
-            pin2.setBackgroundResource(R.drawable.btn_yandex);
-            pin3.setBackgroundResource(R.drawable.btn_yandex);
-            pin4.setBackgroundResource(R.drawable.btn_yandex);
+            pin1.setBackgroundResource(R.drawable.pin_dot_inactive);
+            pin2.setBackgroundResource(R.drawable.pin_dot_inactive);
+            pin3.setBackgroundResource(R.drawable.pin_dot_inactive);
+            pin4.setBackgroundResource(R.drawable.pin_dot_inactive);
         }
     }
 
@@ -183,5 +213,10 @@ public class PinCodeActivity extends AppCompatActivity implements View.OnClickLi
     private String getPassCode() {
         SharedPreferences preferences = getSharedPreferences("passcode_pref",Context.MODE_PRIVATE);
         return preferences.getString("passcode","");
+    }
+
+    private Boolean getPatientStatus() {
+        SharedPreferences preferences = getSharedPreferences("patient_pref",Context.MODE_PRIVATE);
+        return preferences.getBoolean("patient",false);
     }
 }

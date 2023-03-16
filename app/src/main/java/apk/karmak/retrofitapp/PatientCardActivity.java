@@ -19,17 +19,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import apk.karmak.retrofitapp.main.MainActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,6 +38,7 @@ public class PatientCardActivity extends AppCompatActivity {
     EditText name,middlename,surname,date;
     Spinner gender;
     Button createCard;
+    TextView scipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +47,22 @@ public class PatientCardActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("token_pref", Context.MODE_PRIVATE);
         token = preferences.getString("token","");
+
+
+        scipe = findViewById(R.id.scip3);
+        scipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences preferences = getSharedPreferences("patient_pref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("patient", false);
+                editor.commit();
+
+                Intent pin = new Intent(PatientCardActivity.this, MainActivity.class);
+                pin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(pin);
+            }
+        });
 
 
         name=findViewById(R.id.PatientName);
@@ -71,6 +84,8 @@ public class PatientCardActivity extends AppCompatActivity {
                         &&date.getText().length()>0
                         &&gender.getSelectedItemPosition()!=0) {
                     createCard.setEnabled(true);
+                }else {
+                    createCard.setEnabled(false);
                 }
             }
         });
@@ -93,6 +108,8 @@ public class PatientCardActivity extends AppCompatActivity {
                         &&date.getText().length()>0
                         &&gender.getSelectedItemPosition()!=0) {
                     createCard.setEnabled(true);
+                }else {
+                    createCard.setEnabled(false);
                 }
             }
         });
@@ -115,6 +132,8 @@ public class PatientCardActivity extends AppCompatActivity {
                         &&date.getText().length()>0
                         &&gender.getSelectedItemPosition()!=0) {
                     createCard.setEnabled(true);
+                }else {
+                    createCard.setEnabled(false);
                 }
             }
         });
@@ -137,6 +156,8 @@ public class PatientCardActivity extends AppCompatActivity {
                         &&date.getText().length()>0
                         &&gender.getSelectedItemPosition()!=0) {
                     createCard.setEnabled(true);
+                }else {
+                    createCard.setEnabled(false);
                 }
             }
         });
@@ -162,42 +183,40 @@ public class PatientCardActivity extends AppCompatActivity {
 
                 MyAPI myAPI = retrofit.create(MyAPI.class);
 
-                try {
-                    JSONObject paramObject = new JSONObject();
-                    paramObject.put("id", 1);
-                    paramObject.put("firstname", "fdg");
-                    paramObject.put("lastname", "fdg");
-                    paramObject.put("middlename", "fdg");
-                    paramObject.put("bith", "fdg");
-                    paramObject.put("pol", "Мужской");
-                    paramObject.put("image", "fdg");
 
 
-                    Call<DataModel> call = myAPI.create("Bearer "+token,
-                            paramObject.toString());
-                    call.enqueue(new Callback<DataModel>() {
-                        @Override
-                        public void onResponse(Call<DataModel> call, Response<DataModel> response) {
-                            if(!response.isSuccessful()) {
-                                Log.e("MSG", response.code()+"");
-                                Log.e("MSG", new Gson().toJson(response.body())+"");
 
-                                return;
-                            }
-//                        Intent pin = new Intent(PatientCardActivity.this, PinCodeActivity.class);
-//                        pin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(pin);
-
+                PatientModal patientModal = new PatientModal(null,
+                        name.getText().toString()+"",
+                        surname.getText().toString()+"",
+                        middlename.getText().toString()+"",
+                        date.getText().toString()+"",
+                        gender.getSelectedItem().toString()+"",
+                        null,null,null,null);
+                Call<PatientModal> call = myAPI.create("Bearer "+token, patientModal);
+                call.enqueue(new Callback<PatientModal>() {
+                    @Override
+                    public void onResponse(Call<PatientModal> call, Response<PatientModal> response) {
+                        if(!response.isSuccessful()) {
+                            Log.e("MSG", response.code()+" || "+new Gson().toJson(response.body()));
+                            return;
                         }
+                        Log.e("MSG", "JSON: "+new Gson().toJson(response.body()));
 
-                        @Override
-                        public void onFailure(Call<DataModel> call, Throwable t) {
-                            Log.e("MSG", t.getMessage());
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                        SharedPreferences preferences = getSharedPreferences("patient_pref", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean("patient", true);
+                        editor.commit();
+
+                        Intent pin = new Intent(PatientCardActivity.this, MainActivity.class);
+                        pin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(pin);
+                    }
+                    @Override
+                    public void onFailure(Call<PatientModal> call, Throwable t) {
+                        Log.e("MSG_ERROR", t.getMessage());
+                    }
+                });
 
 
             }
@@ -245,6 +264,16 @@ public class PatientCardActivity extends AppCompatActivity {
                             textView.setTextColor(Color.parseColor("#000000"));
                         }else {
                             textView.setTextColor(Color.parseColor("#939396"));
+                        }
+
+                        if(name.getText().length()>0
+                                &&middlename.getText().length()>0
+                                &&surname.getText().length()>0
+                                &&date.getText().length()>0
+                                &&gender.getSelectedItemPosition()!=0) {
+                            createCard.setEnabled(true);
+                        }else {
+                            createCard.setEnabled(false);
                         }
                     }
 

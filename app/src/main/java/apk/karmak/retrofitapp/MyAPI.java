@@ -18,8 +18,8 @@ public interface MyAPI {
     Call<DataModel> getCode(@Header("email") String email,
                             @Header("code") String code);
     @POST("createProfile")
-    Call<DataModel> create(@Header("Authorization") String token,
-                            @Body String body);
+    Call<PatientModal> create(@Header("Authorization") String token,
+                            @Body PatientModal body);
 
 
 
