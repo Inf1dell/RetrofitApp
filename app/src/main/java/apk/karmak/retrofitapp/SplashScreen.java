@@ -16,8 +16,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(2*1000);
-//                    Intent board = new Intent(getBaseContext(), OnBoard.class);
-                    Intent board = new Intent(getBaseContext(), PatientCardActivity.class);
+                    Intent board = new Intent(getBaseContext(), OnBoard.class);
                     startActivity(board);
                     finish();
                 } catch (Exception e) {

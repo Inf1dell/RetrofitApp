@@ -37,7 +37,7 @@ public class PinCodeActivity extends AppCompatActivity implements View.OnClickLi
         scip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent main = new Intent(PinCodeActivity.this, MainActivity.class);
+                Intent main = new Intent(PinCodeActivity.this, PatientCardActivity.class);
                 main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(main);
             }
@@ -159,12 +159,12 @@ public class PinCodeActivity extends AppCompatActivity implements View.OnClickLi
 
     private void matchPassCode() {
         if(getPassCode().equals(passCode)) {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, PatientCardActivity.class));
         } else {
 //            Toast.makeText(this, "Pass error", Toast.LENGTH_SHORT).show();
             numbers_list.clear();
             passNumber(numbers_list);
-            pin1.setBackgroundColor(Color.parseColor("#fff"));
+            pin1.setBackgroundResource(R.drawable.btn_yandex);
             pin2.setBackgroundResource(R.drawable.btn_yandex);
             pin3.setBackgroundResource(R.drawable.btn_yandex);
             pin4.setBackgroundResource(R.drawable.btn_yandex);

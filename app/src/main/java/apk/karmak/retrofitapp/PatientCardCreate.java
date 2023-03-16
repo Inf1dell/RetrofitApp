@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class PatientCardCreate extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class PatientCardCreate extends AppCompatActivity {
     Button btnCreateAccount;
     EditText eName, eSurname, eFamilyName, eBirthday;
     Spinner eSex;
@@ -135,19 +135,19 @@ public class PatientCardCreate extends AppCompatActivity implements AdapterView.
                 }
             }
         });
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.patientSex, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-        eSex.setAdapter(adapter);
-        eSex.setOnItemSelectedListener(this);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
+////        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.patientSex, android.R.layout.simple_spinner_item);
+////        adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+////        eSex.setAdapter(adapter);
+////        eSex.setOnItemSelectedListener(this);
+//    }
+//
+//    @Override
+//    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> adapterView) {
+//
     }
 }
