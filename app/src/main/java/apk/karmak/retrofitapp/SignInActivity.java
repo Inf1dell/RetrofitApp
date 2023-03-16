@@ -2,7 +2,10 @@ package apk.karmak.retrofitapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -50,7 +53,6 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DataModel> call, Response<DataModel> response) {
                 if (!response.isSuccessful()) {
-
                     return;
                 }
 
@@ -141,6 +143,13 @@ public class SignInActivity extends AppCompatActivity {
 
                                 return;
                             }
+
+                            SharedPreferences preferences = getSharedPreferences("token_pref", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("token", response.body().getToken());
+                            editor.commit();
+
+
                             Intent pin = new Intent(SignInActivity.this, PinCodeActivity.class);
                             pin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(pin);

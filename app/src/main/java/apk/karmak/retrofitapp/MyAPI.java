@@ -11,16 +11,15 @@ import retrofit2.http.Query;
 
 public interface MyAPI {
 
-//    @Headers({"email: its@worked.why"})
-//    @POST("sendCode")
-//    Call<DataModel> getMes(@Body DataModel dataModel);
-
     @POST("sendCode")
     Call<DataModel> getMess(@Header("email") String email);
 
     @POST("signin")
     Call<DataModel> getCode(@Header("email") String email,
                             @Header("code") String code);
+    @POST("createProfile")
+    Call<DataModel> create(@Header("Authorization") String token,
+                            @Body String body);
 
 
 
