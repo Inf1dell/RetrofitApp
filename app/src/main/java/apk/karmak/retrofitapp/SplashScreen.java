@@ -33,6 +33,7 @@ public class SplashScreen extends AppCompatActivity {
                     else {
                         Intent board = new Intent(SplashScreen.this, OnBoard.class);
                         startActivity(board);
+                        //tets
                     }
                     finish();
 
