@@ -3,6 +3,7 @@ package apk.karmak.retrofitapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,13 +17,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import apk.karmak.retrofitapp.main.MainActivity;
@@ -35,7 +41,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PatientCardActivity extends AppCompatActivity {
 
     String token;
-    EditText name,middlename,surname,date;
+    EditText name,middlename,surname;
+    Button date;
     Spinner gender;
     Button createCard;
     TextView scipe;
@@ -138,29 +145,74 @@ public class PatientCardActivity extends AppCompatActivity {
             }
         });
         date=findViewById(R.id.PatientDate);
-        date.addTextChangedListener(new TextWatcher() {
+        date.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if(date.getText().length()>0) {
-                    date.setBackgroundResource(R.drawable.input_active);
-                } else{
-                    date.setBackgroundResource(R.drawable.input_inactive);
-                }
-                if(name.getText().length()>0
-                        &&middlename.getText().length()>0
-                        &&surname.getText().length()>0
-                        &&date.getText().length()>0
-                        &&gender.getSelectedItemPosition()!=0) {
-                    createCard.setEnabled(true);
-                }else {
-                    createCard.setEnabled(false);
-                }
+            public void onClick(View view) {
+                Log.e("MSG","Date");
+                final Calendar c = Calendar.getInstance();
+
+                // on below line we are getting
+                // our day, month and year.
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                // on below line we are creating a variable for date picker dialog.
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        // on below line we are passing context.
+                        PatientCardActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // on below line we are setting date to our text view.
+                                try {
+                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+
+                                    Date dateT = sdf.parse(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
+
+                                    String dateTime = simpleDateFormat.format(dateT).toString();
+                                    date.setText(dateTime);
+                                    date.setTextColor(Color.parseColor("#000000"));
+                                } catch (ParseException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+
+                            }
+                        },
+                        // on below line we are passing year,
+                        // month and day for selected date in our date picker.
+                        year, month, day);
+                // at last we are calling show to
+                // display our date picker dialog.
+                datePickerDialog.show();
             }
         });
+//        date.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                if(date.getText().length()>0) {
+//                    date.setBackgroundResource(R.drawable.input_active);
+//                } else{
+//                    date.setBackgroundResource(R.drawable.input_inactive);
+//                }
+//                if(name.getText().length()>0
+//                        &&middlename.getText().length()>0
+//                        &&surname.getText().length()>0
+//                        &&date.getText().length()>0
+//                        &&gender.getSelectedItemPosition()!=0) {
+//                    createCard.setEnabled(true);
+//                }else {
+//                    createCard.setEnabled(false);
+//                }
+//            }
+//        });
 
         gender=findViewById(R.id.PatientGender);
 //        gender.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -282,6 +334,9 @@ public class PatientCardActivity extends AppCompatActivity {
                     }
                 });
         gender.setAdapter(spinnerArrayAdapter);
+
+
+
 
     }
 }

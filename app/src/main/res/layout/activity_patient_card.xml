@@ -121,20 +121,21 @@
             android:textColorHint="#939396 "
             android:textSize="15sp" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/PatientDate"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/input_inactive"
-            android:ems="10"
-            android:hint="Дата рождения"
-            android:inputType="textPersonName"
+            android:gravity="left"
             android:minHeight="48dp"
             android:padding="14dp"
-            android:textColor="#000000"
-            android:textColorHint="#939396 "
-            android:textSize="15sp" />
+            android:stateListAnimator="@null"
+            android:text="Дата рождения"
+            android:textAllCaps="false"
+            android:textColor="#939396"
+            android:textSize="15sp"
+            android:textStyle="normal" />
 
         <Spinner
             android:id="@+id/PatientGender"

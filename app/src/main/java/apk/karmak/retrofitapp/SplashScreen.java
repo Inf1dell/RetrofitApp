@@ -23,7 +23,8 @@ public class SplashScreen extends AppCompatActivity {
                     if (isOpenAlread())
                     {
                         if(isSignIn().length()>0||isSignIn()!=null||!isSignIn().equals("")){
-                            Intent login = new Intent(SplashScreen.this, PinCodeActivity.class);
+                            Intent login = new Intent(SplashScreen.this, PatientCardActivity.class);
+//                            Intent login = new Intent(SplashScreen.this, PinCodeActivity.class);
                             startActivity(login);
                         }else {
                             Intent login = new Intent(SplashScreen.this, LoginActivity.class);
