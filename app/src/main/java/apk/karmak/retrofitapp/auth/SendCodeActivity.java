@@ -2,6 +2,7 @@ package apk.karmak.retrofitapp.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -80,19 +81,29 @@ public class SendCodeActivity extends AppCompatActivity {
                             return;
                         }
                         pd.dismiss();
+                        Intent code = new Intent(SendCodeActivity.this, SignInActivity.class);
+                        code.putExtra("email", email.getText().toString());
+                        startActivity(code);
                     }
 
                     @Override
                     public void onFailure(Call<DataModel> call, Throwable t) {
                         pd.dismiss();
                         Log.e("Error get code", t.getMessage());
-                        finish();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SendCodeActivity.this);
+                        builder.setTitle("Ошибка")
+                                .setMessage(t.getMessage())
+                                .setPositiveButton("ОК", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                        builder.create();
+                        builder.show();
                     }
                 });
 
-                Intent code = new Intent(SendCodeActivity.this, SignInActivity.class);
-                code.putExtra("email", email.getText().toString());
-                startActivity(code);
+
 
             }
         });

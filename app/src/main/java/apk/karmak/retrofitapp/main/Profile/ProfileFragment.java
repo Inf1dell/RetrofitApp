@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ public class ProfileFragment extends Fragment {
     EditText name,surname,middlename;
     Spinner gender;
     Button updateBtn, dateBtn;
-    ImageButton imageButton;
+    ImageView imageButton;
 
     SharedPreferences preferences;
 
@@ -178,6 +179,7 @@ public class ProfileFragment extends Fragment {
             middlename.setText(preferences.getString("middlename",""));
             surname.setText(preferences.getString("surname",""));
             dateBtn.setText(preferences.getString("date",""));
+            dateBtn.setTextColor(getResources().getColor(R.color.black));
 
         }
 
