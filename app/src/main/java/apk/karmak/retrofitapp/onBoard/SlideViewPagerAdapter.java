@@ -1,16 +1,18 @@
-package apk.karmak.retrofitapp;
+package apk.karmak.retrofitapp.onBoard;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
+
+import apk.karmak.retrofitapp.R;
+import apk.karmak.retrofitapp.auth.SendCodeActivity;
 
 public class SlideViewPagerAdapter extends PagerAdapter {
 
@@ -39,11 +41,6 @@ public class SlideViewPagerAdapter extends PagerAdapter {
 
         ImageView picture=view.findViewById(R.id.picture);
 
-        ImageView ind1=view.findViewById(R.id.ind1);
-        ImageView ind2=view.findViewById(R.id.ind2);
-        ImageView ind3=view.findViewById(R.id.ind3);
-
-
         TextView title=view.findViewById(R.id.title);
         TextView desc=view.findViewById(R.id.desc);
 
@@ -51,7 +48,7 @@ public class SlideViewPagerAdapter extends PagerAdapter {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(ctx,LoginActivity.class);
+                Intent intent=new Intent(ctx, SendCodeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
                 ctx.startActivity(intent);
             }
@@ -75,10 +72,6 @@ public class SlideViewPagerAdapter extends PagerAdapter {
             case 0:
                 picture.setImageResource(R.drawable.illus_one);
 
-                ind1.setImageResource(R.drawable.btn_status);
-                ind2.setImageResource(R.drawable.btn_yandex);
-                ind3.setImageResource(R.drawable.btn_yandex);
-
                 title.setText("Анализы");
                 desc.setText("Экспресс сбор и получение проб");
 
@@ -87,9 +80,6 @@ public class SlideViewPagerAdapter extends PagerAdapter {
                 break;
             case 1:
                 picture.setImageResource(R.drawable.illus_two);
-                ind1.setImageResource(R.drawable.btn_yandex);
-                ind2.setImageResource(R.drawable.btn_status);
-                ind3.setImageResource(R.drawable.btn_yandex);
 
                 title.setText("Уведомления");
                 desc.setText("Вы быстро узнаете о результатах");
@@ -98,9 +88,6 @@ public class SlideViewPagerAdapter extends PagerAdapter {
                 break;
             case 2:
                 picture.setImageResource(R.drawable.illus_three);
-                ind1.setImageResource(R.drawable.btn_yandex);
-                ind2.setImageResource(R.drawable.btn_yandex);
-                ind3.setImageResource(R.drawable.btn_status);
 
                 title.setText("Мониторинг");
                 desc.setText("Наши врачи всегда наблюдают \n" +
@@ -109,12 +96,6 @@ public class SlideViewPagerAdapter extends PagerAdapter {
                 skip.setText("Завершить");
 
                 break;
-
-
-
-
-
-
         }
 
 

@@ -2,17 +2,24 @@ package apk.karmak.retrofitapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
-public class SplashScreen extends AppCompatActivity {
+import apk.karmak.retrofitapp.auth.SendCodeActivity;
+import apk.karmak.retrofitapp.onBoard.OnBoard;
+
+public class LaunchScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_launch_screen);
 
 
 
@@ -22,23 +29,20 @@ public class SplashScreen extends AppCompatActivity {
                     sleep(2*1000);
                     if (isOpenAlread())
                     {
-                        if(isSignIn().length()>0||isSignIn()!=null||!isSignIn().equals("")){
-                            Intent login = new Intent(SplashScreen.this, PatientCardActivity.class);
-//                            Intent login = new Intent(SplashScreen.this, PinCodeActivity.class);
+                        if(!isSignIn().equals("")){
+                            Intent login = new Intent(LaunchScreen.this, PinCodeActivity.class);
                             startActivity(login);
                         }else {
-                            Intent login = new Intent(SplashScreen.this, LoginActivity.class);
+                            Intent login = new Intent(LaunchScreen.this, SendCodeActivity.class);
                             startActivity(login);
                         }
                     }
                     else {
-                        Intent board = new Intent(SplashScreen.this, OnBoard.class);
+                        Intent board = new Intent(LaunchScreen.this, OnBoard.class);
                         startActivity(board);
-                        //test
-//                        ?t/
                     }
-                    finish();
 
+                    finish();
                 } catch (Exception e) {
                 }
             }

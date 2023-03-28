@@ -1,4 +1,4 @@
-package apk.karmak.retrofitapp;
+package apk.karmak.retrofitapp.patient;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,7 +32,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import apk.karmak.retrofitapp.R;
 import apk.karmak.retrofitapp.main.MainActivity;
+import apk.karmak.retrofitapp.webservice.MyAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -190,39 +193,68 @@ public class PatientCardActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-//        date.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                if(date.getText().length()>0) {
-//                    date.setBackgroundResource(R.drawable.input_active);
-//                } else{
-//                    date.setBackgroundResource(R.drawable.input_inactive);
-//                }
-//                if(name.getText().length()>0
-//                        &&middlename.getText().length()>0
-//                        &&surname.getText().length()>0
-//                        &&date.getText().length()>0
-//                        &&gender.getSelectedItemPosition()!=0) {
-//                    createCard.setEnabled(true);
-//                }else {
-//                    createCard.setEnabled(false);
-//                }
-//            }
-//        });
 
         gender=findViewById(R.id.PatientGender);
-//        gender.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                if(i==0){
-////                    adapterView.getChildAt(0).setTextColor(Color.parseColor("#fff"));
-//                }
-//            }
-//        });
+        List<String> plantsList = new ArrayList<String>();
+        plantsList.add("Пол");
+        plantsList.add("Мужской");
+        plantsList.add("Женский");
+
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_dropdown_item_1line, plantsList){
+
+            @Override
+            public boolean isEnabled(int position){
+                return position != 0;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,@NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = (TextView) view;
+
+                if(position == 0){
+                    textView.setTextColor(Color.GRAY);
+                }
+                else {
+                    textView.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                        String selectedItemText = (String) parent.getItemAtPosition(position);
+                TextView textView = (TextView) view;
+                Typeface typeface = getResources().getFont(R.font.regular);
+                textView.setTypeface(typeface);
+                if(position > 0){
+                    textView.setTextColor(Color.parseColor("#000000"));
+                }else {
+                    textView.setTextColor(Color.parseColor("#939396"));
+                }
+
+                if(name.getText().length()>0
+                        &&middlename.getText().length()>0
+                        &&surname.getText().length()>0
+                        &&date.getText().length()>0
+                        &&gender.getSelectedItemPosition()!=0) {
+                    createCard.setEnabled(true);
+                }else {
+                    createCard.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        gender.setAdapter(spinnerArrayAdapter);
+
 
         createCard=findViewById(R.id.createCard);
         createCard.setOnClickListener(new View.OnClickListener() {
@@ -258,6 +290,11 @@ public class PatientCardActivity extends AppCompatActivity {
                         SharedPreferences preferences = getSharedPreferences("patient_pref", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putBoolean("patient", true);
+                        editor.putString("name", name.getText().toString());
+                        editor.putString("middlename", middlename.getText().toString());
+                        editor.putString("surname", surname.getText().toString());
+                        editor.putString("date", date.getText().toString());
+                        editor.putInt("gender", gender.getSelectedItemPosition());
                         editor.commit();
 
                         Intent pin = new Intent(PatientCardActivity.this, MainActivity.class);
@@ -278,62 +315,8 @@ public class PatientCardActivity extends AppCompatActivity {
 
 
 
-        List<String> plantsList = new ArrayList<String>();
-        plantsList.add("Пол");
-        plantsList.add("Мужской");
-        plantsList.add("Женский");
 
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_dropdown_item_1line, plantsList){
 
-            @Override
-            public boolean isEnabled(int position){
-                return position != 0;
-            }
-
-            @Override
-            public View getDropDownView(int position, View convertView,@NonNull ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView textView = (TextView) view;
-                if(position == 0){
-                    textView.setTextColor(Color.GRAY);
-                }
-                else {
-                    textView.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
-        gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                        String selectedItemText = (String) parent.getItemAtPosition(position);
-                        TextView textView = (TextView) view;
-                        if(position > 0){
-                            textView.setTextColor(Color.parseColor("#000000"));
-                        }else {
-                            textView.setTextColor(Color.parseColor("#939396"));
-                        }
-
-                        if(name.getText().length()>0
-                                &&middlename.getText().length()>0
-                                &&surname.getText().length()>0
-                                &&date.getText().length()>0
-                                &&gender.getSelectedItemPosition()!=0) {
-                            createCard.setEnabled(true);
-                        }else {
-                            createCard.setEnabled(false);
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                    }
-                });
-        gender.setAdapter(spinnerArrayAdapter);
 
 
 

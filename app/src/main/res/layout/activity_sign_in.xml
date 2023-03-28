@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignInActivity"
+    tools:context=".auth.SignInActivity"
     tools:layout_editor_absoluteX="66dp"
     tools:layout_editor_absoluteY="1dp">
 
@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="188dp"
+        android:fontFamily="@font/semibold"
         android:text="Введите код из E-mail"
         android:textColor="#000000"
         android:textSize="17sp"
@@ -99,6 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/regular"
         android:gravity="center"
         android:text="Отправить код повторно можно \nбудет через 59 секунд"
         android:textColor="#939396"

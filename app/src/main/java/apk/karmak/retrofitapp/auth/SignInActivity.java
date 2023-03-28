@@ -1,8 +1,7 @@
-package apk.karmak.retrofitapp;
+package apk.karmak.retrofitapp.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,16 +11,16 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
+import apk.karmak.retrofitapp.PinCodeActivity;
+import apk.karmak.retrofitapp.auth.modal.DataModel;
+import apk.karmak.retrofitapp.webservice.MyAPI;
+import apk.karmak.retrofitapp.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +31,8 @@ public class SignInActivity extends AppCompatActivity {
     TextView textView6;
     ImageButton back;
     EditText e1, e2, e3, e4;
+    String email;
+    CountDownTimer mCountDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,31 +40,8 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         Intent intent = getIntent();
-        String email = intent.getStringExtra("email");
+        email = intent.getStringExtra("email");
 
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://medic.madskill.ru/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        MyAPI getWeatherApi = retrofit.create(MyAPI.class);
-        Call<DataModel> call = getWeatherApi.getMess(email);
-        call.enqueue(new Callback<DataModel>() {
-            @Override
-            public void onResponse(Call<DataModel> call, Response<DataModel> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<DataModel> call, Throwable t) {
-                Log.e("Error get code", t.getMessage());
-                finish();
-            }
-        });
 
         textView6 = findViewById(R.id.textView6);
         back = findViewById(R.id.back_btn);
@@ -171,20 +149,45 @@ public class SignInActivity extends AppCompatActivity {
 
 
 
-        new CountDownTimer(59*1000, 1*1000) {
+        mCountDownTimer = new CountDownTimer(59*1000, 1*1000) {
 
             //Здесь обновляем текст счетчика обратного отсчета с каждой секундой
             public void onTick(long millisUntilFinished) {
                 textView6.setText("Отправить код повторно можно \nбудет через "+ (millisUntilFinished+1000)/1000 +" секунд");
             }
-            //Задаем действия после завершения отсчета (высвечиваем надпись "Бабах!"):
+            //Задаем действия после завершения отсчета
             public void onFinish() {
-                textView6.setText("Бабах!");
-
+                sendCode();
             }
         }.start();
 
 
+    }
+
+    private void sendCode() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://medic.madskill.ru/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        MyAPI getWeatherApi = retrofit.create(MyAPI.class);
+        Call<DataModel> call = getWeatherApi.getMess(email);
+        call.enqueue(new Callback<DataModel>() {
+            @Override
+            public void onResponse(Call<DataModel> call, Response<DataModel> response) {
+                if (!response.isSuccessful()) {
+                    return;
+                }
+                    mCountDownTimer.start();
+
+            }
+
+            @Override
+            public void onFailure(Call<DataModel> call, Throwable t) {
+                Log.e("Error get code", t.getMessage());
+                finish();
+            }
+        });
     }
 
 }

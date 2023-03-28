@@ -17,17 +17,19 @@
         android:id="@+id/picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ind1"
-        app:srcCompat="@drawable/illus_one"/>
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:srcCompat="@drawable/illus_one" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="229dp"
+        android:fontFamily="@font/lato_semibold"
         android:text="Анализы"
         android:textColor="#00B712"
         android:textSize="20sp"
@@ -43,6 +45,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="29dp"
         android:layout_marginEnd="80dp"
+        android:fontFamily="@font/regular"
         android:gravity="center"
         android:text="Экспресс сбор и получение проб"
         android:textColor="#939396"
@@ -51,41 +54,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <ImageView
-        android:id="@+id/ind1"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintEnd_toStartOf="@+id/ind2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/desc"
-        app:srcCompat="@drawable/btn_status" />
 
-    <ImageView
-        android:id="@+id/ind2"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ind1"
-        app:layout_constraintEnd_toStartOf="@+id/ind3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ind1"
-        app:layout_constraintTop_toTopOf="@+id/ind1"
-        app:srcCompat="@drawable/btn_yandex" />
-
-    <ImageView
-        android:id="@+id/ind3"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ind2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ind2"
-        app:layout_constraintTop_toTopOf="@+id/ind2"
-        app:srcCompat="@drawable/btn_yandex" />
 
     <TextView
         android:id="@+id/skip"
@@ -93,6 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="5dp"
+        android:fontFamily="@font/lato_semibold"
         android:text="Пропустить"
         android:textColor="#57A9FF"
         android:textSize="20sp"

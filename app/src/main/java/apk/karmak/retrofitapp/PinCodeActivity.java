@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import apk.karmak.retrofitapp.patient.PatientCardActivity;
 import apk.karmak.retrofitapp.main.MainActivity;
 
 public class PinCodeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -55,7 +56,7 @@ public class PinCodeActivity extends AppCompatActivity implements View.OnClickLi
         });
 
 
-        if(getPassCode().length()!=0 || !getPassCode().equals("") || getPassCode()!=null){
+        if(!getPassCode().equals("")){
             scip.setVisibility(View.INVISIBLE);
             title.setText("Введите пароль");
         }
