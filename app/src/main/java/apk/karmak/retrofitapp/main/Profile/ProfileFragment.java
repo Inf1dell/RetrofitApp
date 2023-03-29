@@ -1,22 +1,17 @@
 package apk.karmak.retrofitapp.main.Profile;
 
 import android.app.DatePickerDialog;
-import android.app.ZygotePreload;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +21,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,7 +40,10 @@ public class ProfileFragment extends Fragment {
     EditText name,surname,middlename;
     Spinner gender;
     Button updateBtn, dateBtn;
-    ImageView imageButton;
+    RoundedImageView imageButton;
+    ImageView imageView;
+
+    String imageData;
 
     SharedPreferences preferences;
 
@@ -114,8 +113,18 @@ public class ProfileFragment extends Fragment {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
             }
         });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+            }
+        });
 
         List<String> plantsList = new ArrayList<String>();
+        plantsList.add("Пол");
         plantsList.add("Мужской");
         plantsList.add("Женский");
 
@@ -130,7 +139,7 @@ public class ProfileFragment extends Fragment {
 //                        String selectedItemText = (String) parent.getItemAtPosition(position);
                 TextView textView = (TextView) view;
 
-                Typeface typeface = getResources().getFont(R.font.regular);
+                Typeface typeface = ResourcesCompat.getFont(getActivity(), R.font.regular);
                 textView.setTypeface(typeface);
 
                 if(position > 0){
@@ -152,10 +161,28 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
         gender.setAdapter(spinnerArrayAdapter);
 
+
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences preferences = getActivity().getSharedPreferences("patient_pref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("patient", true);
+                editor.putString("name", name.getText().toString());
+                editor.putString("middlename", middlename.getText().toString());
+                editor.putString("surname", surname.getText().toString());
+                editor.putString("date", dateBtn.getText().toString());
+                editor.putInt("gender", gender.getSelectedItemPosition());
+                editor.putString("imageData", imageData);
+                editor.commit();
+                Log.e("", "UPDATE");
+            }
+        });
 
 
         return v;
@@ -164,8 +191,9 @@ public class ProfileFragment extends Fragment {
     private void initElemetnts(View v) {
         dateBtn=v.findViewById(R.id.CardDate);
         imageButton = v.findViewById(R.id.imageButton);
+        imageView = v.findViewById(R.id.imageView);
         gender=v.findViewById(R.id.CardGender);
-        updateBtn=v.findViewById(R.id.btnAdd);
+        updateBtn=v.findViewById(R.id.btnSave);
 
         name=v.findViewById(R.id.CardName);
         middlename=v.findViewById(R.id.CardMiddlename);
@@ -180,7 +208,16 @@ public class ProfileFragment extends Fragment {
             surname.setText(preferences.getString("surname",""));
             dateBtn.setText(preferences.getString("date",""));
             dateBtn.setTextColor(getResources().getColor(R.color.black));
-
+            imageData=preferences.getString("imageData","");
+            if(!imageData.equals("")) {
+                Log.e("","eq");
+                try {
+                    imageButton.setImageURI(Uri.parse(imageData));
+                    imageView.setVisibility(View.GONE);
+                } catch (Exception e) {
+                    Log.e("MSG", "BUG");
+                }
+            }
         }
 
     }
@@ -188,8 +225,16 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
-            Uri selectedImageUri = data.getData();
-            imageButton.setImageURI(selectedImageUri);
+            try {
+                Uri selectedImageUri = data.getData();
+                imageData = selectedImageUri.toString();
+                imageButton.setImageURI(selectedImageUri);
+                imageView.setVisibility(View.GONE);
+                Log.e("MSG", selectedImageUri+"");
+            } catch (Exception e)
+            {
+                Log.e("MSG", "Image not selected");
+            }
         }
     }
 }

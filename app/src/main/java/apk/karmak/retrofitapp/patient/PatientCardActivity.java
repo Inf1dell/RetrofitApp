@@ -2,6 +2,7 @@ package apk.karmak.retrofitapp.patient;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -230,7 +231,7 @@ public class PatientCardActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //                        String selectedItemText = (String) parent.getItemAtPosition(position);
                 TextView textView = (TextView) view;
-                Typeface typeface = getResources().getFont(R.font.regular);
+                Typeface typeface = ResourcesCompat.getFont(PatientCardActivity.this, R.font.regular);
                 textView.setTypeface(typeface);
                 if(position > 0){
                     textView.setTextColor(Color.parseColor("#000000"));
