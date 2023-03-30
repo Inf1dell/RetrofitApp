@@ -1,14 +1,322 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".main.Analyzes.AnalyzesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/input"
+        android:drawableLeft="@drawable/search"
+        android:drawablePadding="8dp"
+        android:ems="10"
+        android:hint="Искать анализы"
+        android:inputType="textPersonName"
+        android:padding="14dp"
+        android:textColor="#000000"
+        android:textColorHint="#939396"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="32dp"
+                android:text="Акции и новости"
+                android:textColor="#939396"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hor_news"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Каталог анализов"
+                android:textColor="#939396"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:background="@drawable/category_btn"
+                        android:enabled="false"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Популярные"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="14sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Covid"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="14sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Комплексные"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="14sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Чекапы"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="14sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Биохимия"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="14sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Гормоны"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="14sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Иммунитет"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="14sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Витамины"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="14sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Аллергены"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="14sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Анализ крови"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="14sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Анализ мочи"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="14sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Анализ кала"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/button15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="14sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_btn"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="14dp"
+                        android:text="Только в клинике"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/text_category_style"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
