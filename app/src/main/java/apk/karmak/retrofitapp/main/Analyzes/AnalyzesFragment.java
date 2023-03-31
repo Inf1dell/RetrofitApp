@@ -14,7 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Array;
@@ -25,6 +29,7 @@ import apk.karmak.retrofitapp.PinCodeActivity;
 import apk.karmak.retrofitapp.R;
 import apk.karmak.retrofitapp.auth.SignInActivity;
 import apk.karmak.retrofitapp.auth.modal.DataModel;
+import apk.karmak.retrofitapp.main.Analyzes.modal.CatalogModel;
 import apk.karmak.retrofitapp.main.Analyzes.modal.NewsModal;
 import apk.karmak.retrofitapp.webservice.MyAPI;
 import retrofit2.Call;
@@ -36,20 +41,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AnalyzesFragment extends Fragment {
 
-    RecyclerView hor_news;
-    private ArrayList<NewsModal> modals;
+    RecyclerView hor_news, catalogList;
 
     CustomAdapter adapter;
+    CatalogAdapter adapterCat;
 
     ArrayList<NewsModal> newsModals = new ArrayList<>();
+    ArrayList<CatalogModel> catalogModels = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.fragment_analyzes, container, false);
 
+        catalogList = v.findViewById(R.id.catalogList);
+        LinearLayoutManager layoutManager1
+                = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
+        catalogList.setLayoutManager(layoutManager1);
+
+
         hor_news = v.findViewById(R.id.hor_news);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-
         hor_news.setLayoutManager(layoutManager);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -58,6 +69,7 @@ public class AnalyzesFragment extends Fragment {
                 .build();
 
         MyAPI myAPI = retrofit.create(MyAPI.class);
+
         Call<List<NewsModal>> call = myAPI.getNews();
         call.enqueue(new Callback<List<NewsModal>>() {
             @Override
@@ -65,27 +77,17 @@ public class AnalyzesFragment extends Fragment {
                 if(!response.isSuccessful()) {
                     Log.e("MSG", response.code()+"");
                     Log.e("MSG", new Gson().toJson(response.body())+"");
-//                                Log.e("MSG", response.body().getToken()+"");
                     return;
                 }
                 List<NewsModal> List = response.body();
-//                String[] oneHeroes = new String[myheroList.size()];
-
+//
 
 
                 for (int i = 0; i < List.size(); i++) {
                     newsModals.add(new NewsModal(List.get(i).getId(), List.get(i).getName(),
                             List.get(i).getDescription(), List.get(i).getPrice(), List.get(i).getImage() ));
 
-
-                    Log.e("id", List.get(i).getId()+"");
-                    Log.e("Name:", List.get(i).getName());
-                    Log.e("Description", List.get(i).getDescription());
-                    Log.e("Image", List.get(i).getImage());
-                    Log.e("Price", List.get(i).getPrice());
-                    Log.e("end", "---------");
-
-                    CustomAdapter adapter=new CustomAdapter(newsModals,getActivity());
+                    adapter=new CustomAdapter(newsModals,getActivity());
                     hor_news.setAdapter(adapter);
                 }
 
@@ -95,11 +97,38 @@ public class AnalyzesFragment extends Fragment {
             @Override
             public void onFailure(Call<List<NewsModal>> call, Throwable t) {
                 Log.e("MSG", t.getMessage());
+            }
 
+        });
+
+
+        Call<List<CatalogModel>> catalogCall = myAPI.getCatalog();
+        catalogCall.enqueue(new Callback<List<CatalogModel>>() {
+            @Override
+            public void onResponse(Call<List<CatalogModel>> call, Response<List<CatalogModel>> response) {
+                if (!response.isSuccessful()) {
+                    return;
+                }
+                List<CatalogModel> CatList = response.body();
+                for(int i=0; i<CatList.size(); i++) {
+                    catalogModels.add(new CatalogModel(CatList.get(i).getId(), CatList.get(i).getName(),
+                            CatList.get(i).getDescription(), CatList.get(i).getPrice(), CatList.get(i).getImage(),
+                            CatList.get(i).getCategory(), CatList.get(i).getTime_result(), CatList.get(i).getPreparation(), CatList.get(i).getBio()));
+
+                    adapterCat=new CatalogAdapter(catalogModels,getActivity());
+                    catalogList.setAdapter(adapterCat);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<CatalogModel>> call, Throwable t) {
+                Log.e("CatalogResponseError", t.getMessage());
             }
         });
 
 
+
         return v;
     }
+
+
 }

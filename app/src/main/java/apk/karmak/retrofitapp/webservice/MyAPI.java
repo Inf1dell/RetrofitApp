@@ -3,6 +3,7 @@ package apk.karmak.retrofitapp.webservice;
 import java.util.List;
 
 import apk.karmak.retrofitapp.auth.modal.DataModel;
+import apk.karmak.retrofitapp.main.Analyzes.modal.CatalogModel;
 import apk.karmak.retrofitapp.main.Analyzes.modal.NewsModal;
 import apk.karmak.retrofitapp.patient.PatientModal;
 import retrofit2.Call;
@@ -24,4 +25,6 @@ public interface MyAPI {
                               @Body PatientModal body);
     @GET("news")
     Call<List<NewsModal>> getNews();
+    @GET("catalog")
+    Call<List<CatalogModel>> getCatalog();
 }
