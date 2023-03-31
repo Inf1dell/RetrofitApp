@@ -1,6 +1,7 @@
 package apk.karmak.retrofitapp.main.Analyzes;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.RecyclerVi
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         // Set the data to textview and imageview.
         NewsModal modal = courseDataArrayList.get(position);
+        Log.e("Adapter", modal.getImage()+"");
         Picasso.get().load(modal.getImage()).into(holder.img);
         holder.name.setText(modal.getName());
         holder.desk.setText(modal.getDescription());
@@ -83,3 +85,5 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.RecyclerVi
         }
     }
 }
+
+

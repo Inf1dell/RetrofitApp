@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -36,8 +37,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AnalyzesFragment extends Fragment {
 
     RecyclerView hor_news;
-    private static CustomAdapter adapter;
     private ArrayList<NewsModal> modals;
+
+    CustomAdapter adapter;
 
     ArrayList<NewsModal> newsModals = new ArrayList<>();
     @Override
@@ -45,6 +47,10 @@ public class AnalyzesFragment extends Fragment {
         View v =inflater.inflate(R.layout.fragment_analyzes, container, false);
 
         hor_news = v.findViewById(R.id.hor_news);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        hor_news.setLayoutManager(layoutManager);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://medic.madskill.ru/api/")
@@ -72,15 +78,17 @@ public class AnalyzesFragment extends Fragment {
                             List.get(i).getDescription(), List.get(i).getPrice(), List.get(i).getImage() ));
 
 
+                    Log.e("id", List.get(i).getId()+"");
                     Log.e("Name:", List.get(i).getName());
                     Log.e("Description", List.get(i).getDescription());
                     Log.e("Image", List.get(i).getImage());
-                    Log.e("id", List.get(i).getId()+"");
-                    Log.e("edn", "---------");
-                }
-                CustomAdapter adapter=new CustomAdapter(newsModals,getActivity());
+                    Log.e("Price", List.get(i).getPrice());
+                    Log.e("end", "---------");
 
-                hor_news.setAdapter(adapter);
+                    CustomAdapter adapter=new CustomAdapter(newsModals,getActivity());
+                    hor_news.setAdapter(adapter);
+                }
+
 
             }
 
@@ -91,27 +99,6 @@ public class AnalyzesFragment extends Fragment {
             }
         });
 
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("https://medic.madskill.ru/api/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        MyAPI myAPI = retrofit.create(MyAPI.class);
-//        Call<NewsModal> call = myAPI.getNews();
-//        call.enqueue(new Callback<NewsModal>() {
-//            @Override
-//            public void onResponse(Call<NewsModal> call, Response<NewsModal> response) {
-//                Log.e("t", response+"");
-//                if(!response.isSuccessful()) {
-//                    return;
-//                }
-//                Log.e("t", call+"");
-//            }
-//
-//            @Override
-//            public void onFailure(Call<NewsModal> call, Throwable t) {
-//                Log.e("t", "Error");
-//            }
-//        });
 
         return v;
     }
