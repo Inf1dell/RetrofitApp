@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:onClick="onClick"
-    tools:context=".PinCodeActivity">
+    tools:context=".ui.activities.PinCodeActivity">
 
     <TextView
         android:id="@+id/scip2"

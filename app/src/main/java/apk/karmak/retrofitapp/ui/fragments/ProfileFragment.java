@@ -1,4 +1,4 @@
-package apk.karmak.retrofitapp.main.Profile;
+package apk.karmak.retrofitapp.ui.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.ZygotePreload;

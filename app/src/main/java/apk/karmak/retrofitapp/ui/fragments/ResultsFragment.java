@@ -1,4 +1,4 @@
-package apk.karmak.retrofitapp.main.Results;
+package apk.karmak.retrofitapp.ui.fragments;
 
 import android.os.Bundle;
 

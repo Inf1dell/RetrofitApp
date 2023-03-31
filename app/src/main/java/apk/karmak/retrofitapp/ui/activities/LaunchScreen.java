@@ -1,4 +1,4 @@
-package apk.karmak.retrofitapp;
+package apk.karmak.retrofitapp.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Window;
 import android.view.WindowManager;
 
-import apk.karmak.retrofitapp.auth.SendCodeActivity;
-import apk.karmak.retrofitapp.onBoard.OnBoard;
+import apk.karmak.retrofitapp.R;
+import apk.karmak.retrofitapp.utils.OnBoard;
 
 public class LaunchScreen extends AppCompatActivity {
 

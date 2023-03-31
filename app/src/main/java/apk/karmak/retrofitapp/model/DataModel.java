@@ -1,4 +1,4 @@
-package apk.karmak.retrofitapp.auth.modal;
+package apk.karmak.retrofitapp.model;
 
 public class DataModel {
 

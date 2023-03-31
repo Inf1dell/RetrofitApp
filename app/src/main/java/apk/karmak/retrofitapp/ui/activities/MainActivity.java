@@ -1,4 +1,4 @@
-package apk.karmak.retrofitapp.main;
+package apk.karmak.retrofitapp.ui.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,10 +11,10 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import apk.karmak.retrofitapp.R;
-import apk.karmak.retrofitapp.main.Analyzes.AnalyzesFragment;
-import apk.karmak.retrofitapp.main.Profile.ProfileFragment;
-import apk.karmak.retrofitapp.main.Results.ResultsFragment;
-import apk.karmak.retrofitapp.main.Support.SupportFragment;
+import apk.karmak.retrofitapp.ui.fragments.AnalyzesFragment;
+import apk.karmak.retrofitapp.ui.fragments.ProfileFragment;
+import apk.karmak.retrofitapp.ui.fragments.ResultsFragment;
+import apk.karmak.retrofitapp.ui.fragments.SupportFragment;
 
 public class MainActivity extends AppCompatActivity {
 

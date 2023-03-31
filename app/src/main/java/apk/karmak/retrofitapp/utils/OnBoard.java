@@ -1,20 +1,15 @@
-package apk.karmak.retrofitapp.onBoard;
+package apk.karmak.retrofitapp.utils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TableLayout;
-
-import com.google.android.material.tabs.TabLayout;
 
 import apk.karmak.retrofitapp.R;
-import apk.karmak.retrofitapp.auth.SendCodeActivity;
 
 public class OnBoard extends AppCompatActivity {
 

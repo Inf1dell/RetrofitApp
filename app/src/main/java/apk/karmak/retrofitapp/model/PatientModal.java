@@ -1,4 +1,4 @@
-package apk.karmak.retrofitapp.patient;
+package apk.karmak.retrofitapp.model;
 
 public class PatientModal {
     Integer id;

@@ -1,7 +1,7 @@
-package apk.karmak.retrofitapp.webservice;
+package apk.karmak.retrofitapp.retrofit;
 
-import apk.karmak.retrofitapp.auth.modal.DataModel;
-import apk.karmak.retrofitapp.patient.PatientModal;
+import apk.karmak.retrofitapp.model.DataModel;
+import apk.karmak.retrofitapp.model.PatientModal;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;

@@ -1,4 +1,4 @@
-package apk.karmak.retrofitapp;
+package apk.karmak.retrofitapp.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,8 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import apk.karmak.retrofitapp.patient.PatientCardActivity;
-import apk.karmak.retrofitapp.main.MainActivity;
+import apk.karmak.retrofitapp.R;
 
 public class PinCodeActivity extends AppCompatActivity implements View.OnClickListener {
 

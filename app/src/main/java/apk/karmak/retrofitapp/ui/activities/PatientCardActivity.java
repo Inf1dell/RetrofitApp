@@ -1,4 +1,4 @@
-package apk.karmak.retrofitapp.patient;
+package apk.karmak.retrofitapp.ui.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,8 +33,8 @@ import java.util.Date;
 import java.util.List;
 
 import apk.karmak.retrofitapp.R;
-import apk.karmak.retrofitapp.main.MainActivity;
-import apk.karmak.retrofitapp.webservice.MyAPI;
+import apk.karmak.retrofitapp.model.PatientModal;
+import apk.karmak.retrofitapp.retrofit.MyAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

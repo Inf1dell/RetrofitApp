@@ -1,4 +1,4 @@
-package apk.karmak.retrofitapp.onBoard;
+package apk.karmak.retrofitapp.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import apk.karmak.retrofitapp.R;
-import apk.karmak.retrofitapp.auth.SendCodeActivity;
+import apk.karmak.retrofitapp.ui.activities.SendCodeActivity;
 
 public class SlideViewPagerAdapter extends PagerAdapter {
 

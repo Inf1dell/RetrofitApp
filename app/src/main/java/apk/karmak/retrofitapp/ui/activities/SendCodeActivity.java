@@ -1,9 +1,8 @@
-package apk.karmak.retrofitapp.auth;
+package apk.karmak.retrofitapp.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,8 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import apk.karmak.retrofitapp.R;
-import apk.karmak.retrofitapp.auth.modal.DataModel;
-import apk.karmak.retrofitapp.webservice.MyAPI;
+import apk.karmak.retrofitapp.model.DataModel;
+import apk.karmak.retrofitapp.retrofit.MyAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
